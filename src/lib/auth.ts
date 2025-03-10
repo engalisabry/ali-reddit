@@ -21,12 +21,15 @@ export const authOptions: NextAuthOptions = {
       authorization: {
         params: {
           redirect_uri: process.env.NEXTAUTH_URL!,
+          response_type: 'code',
+          scope: 'openid email profile',
         },
       },
     }),
   ],
   callbacks: {
     async session({ token, session }) {
+      console.log('session', token);
       if (token) {
         session.user.id = token.id;
         session.user.name = token.name!;
@@ -34,16 +37,18 @@ export const authOptions: NextAuthOptions = {
         session.user.image = token.picture!;
         session.user.username = token.username!;
       }
-
       return session;
     },
 
     async jwt({ token, user }) {
+      console.log('token:', token);
       const dbUser = (await db.user.findFirst({
         where: {
           email: token.email,
         },
       })) as NextAuthUser;
+
+      console.log('dbUser:', dbUser);
 
       if (!dbUser) {
         token.id = user!.id;
