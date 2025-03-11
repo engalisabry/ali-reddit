@@ -28,8 +28,8 @@
       "  return <div>$TM_FILENAME_BASE</div>",
       "}",
       "",
-      "export default $TM_FILENAME_BASE"
+      "export default $TM_FILENAME_BASE",
     ],
-    "description": "Typescript React Function Component"
-  }
+    "description": "Typescript React Function Component",
+  },
 }

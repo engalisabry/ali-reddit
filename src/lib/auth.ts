@@ -1,10 +1,11 @@
-import { db } from '@/lib/db';
+import type { User as NextAuthUser } from '@/types/next-auth.d.ts';
 import { PrismaAdapter } from '@next-auth/prisma-adapter';
+import { UserUpdateInput } from '@prisma/client';
 import { nanoid } from 'nanoid';
 import { NextAuthOptions, getServerSession } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
-import type { User as NextAuthUser } from '@/types/next-auth.d.ts';
-import { UserUpdateInput } from '@prisma/client';
+
+import { db } from '@/lib/db';
 
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(db),
@@ -20,7 +21,6 @@ export const authOptions: NextAuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
       authorization: {
         params: {
-          redirect_uri: process.env.NEXTAUTH_URL!,
           response_type: 'code',
           scope: 'openid email profile',
         },
@@ -29,7 +29,6 @@ export const authOptions: NextAuthOptions = {
   ],
   callbacks: {
     async session({ token, session }) {
-      console.log('session', token);
       if (token) {
         session.user.id = token.id;
         session.user.name = token.name!;
@@ -41,14 +40,11 @@ export const authOptions: NextAuthOptions = {
     },
 
     async jwt({ token, user }) {
-      console.log('token:', token);
       const dbUser = (await db.user.findFirst({
         where: {
           email: token.email,
         },
       })) as NextAuthUser;
-
-      console.log('dbUser:', dbUser);
 
       if (!dbUser) {
         token.id = user!.id;
@@ -75,7 +71,7 @@ export const authOptions: NextAuthOptions = {
         username: dbUser.username,
       };
     },
-    redirect() {
+    redirect: () => {
       return '/';
     },
   },

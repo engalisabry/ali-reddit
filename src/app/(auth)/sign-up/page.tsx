@@ -3,6 +3,7 @@ import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 
 import SignIn from '@/components/SignIn';
+import SignUp from '@/components/SignUp';
 import { buttonVariants } from '@/components/ui/Button';
 
 import { cn } from '@/lib/utils';
@@ -21,7 +22,7 @@ const page = () => {
           <ChevronLeft className="w-4 h-4 mr-2" /> Home
         </Link>
 
-        <SignIn />
+        <SignUp />
       </div>
     </div>
   );

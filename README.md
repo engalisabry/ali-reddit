@@ -1,16 +1,22 @@
 # (Reddit Clone)
 
-(Reddit Clone) is a modern fullstack Reddit clone built with the Next.js App Router, TypeScript, and Tailwind CSS. It’s designed to offer a seamless, high-performance experience for users who want to share content, engage in discussions, and build communities.
+(Reddit Clone) is a modern fullstack Reddit clone built with the Next.js App
+Router, TypeScript, and Tailwind CSS. It’s designed to offer a seamless,
+high-performance experience for users who want to share content, engage in
+discussions, and build communities.
 
 ## Overview
 
 (Reddit Clone) leverages modern web technologies to provide:
 
-- **Dynamic Content Loading:** Infinite scrolling for a smooth browsing experience.
+- **Dynamic Content Loading:** Infinite scrolling for a smooth browsing
+  experience.
 - **Secure Authentication:** NextAuth integrated with Google for easy sign-in.
 - **Personalized Feeds:** Custom content tailored to authenticated users.
-- **Optimized Performance:** Advanced caching using Upstash Redis and optimistic UI updates.
-- **Rich Interaction:** Modern data fetching with React-Query, a fully featured post editor, image uploads, link previews, and nested comment functionality.
+- **Optimized Performance:** Advanced caching using Upstash Redis and optimistic
+  UI updates.
+- **Rich Interaction:** Modern data fetching with React-Query, a fully featured
+  post editor, image uploads, link previews, and nested comment functionality.
 
 ## Features
 
@@ -22,7 +28,8 @@
 - **Modern Data Fetching:** Implemented with React-Query.
 - **Post Editor:** A powerful and elegant editor for creating posts.
 - **Media Enhancements:** Image uploads and link previews to enrich posts.
-- **Full Comment Functionality:** Complete commenting system with nested replies.
+- **Full Comment Functionality:** Complete commenting system with nested
+  replies.
 - **And Much More!**
 
 ## Technologies Used
