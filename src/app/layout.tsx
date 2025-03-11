@@ -6,6 +6,7 @@ import { Toaster } from '@/components/ui/Sonner';
 import { cn } from '@/lib/utils';
 
 import '@/styles/globals.css';
+import Providers from '@/components/Providers';
 
 export const metadata = {
   title: 'Ali Reddit',
@@ -29,7 +30,8 @@ export default function RootLayout({
         inter.className,
       )}
     >
-      <body className="min-h-screen pt-50 bg-slate-50 antialiased">
+      <body className="min-h-screen pt-70 bg-slate-50 antialiased">
+       <Providers>
         {/* @ts-expect-error Server Component */}
         <Navbar />
 
@@ -39,6 +41,7 @@ export default function RootLayout({
           {children}
         </div>
         <Toaster />
+        </Providers>
       </body>
     </html>
   );
