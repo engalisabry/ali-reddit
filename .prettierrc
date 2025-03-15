@@ -25,7 +25,7 @@
     "^@/styles/(.*)$",
     "^[./]"
   ],
-  "importOrderSeparation": true,
+  "importOrderSeparation": false,
   "importOrderSortSpecifiers": true,
   "plugins": [
     "prettier-plugin-tailwindcss",

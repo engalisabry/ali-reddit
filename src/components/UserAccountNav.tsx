@@ -2,11 +2,8 @@
 
 import { User } from 'next-auth';
 import { signOut } from 'next-auth/react';
-
 import { FC } from 'react';
-
 import Link from 'next/link';
-
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,7 +11,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/Dropdown-menu';
-
 import UserAvatar from './UserAvatar';
 
 interface UserAccountNavProps {

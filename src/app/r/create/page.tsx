@@ -1,31 +1,70 @@
 'use client';
 
-import axios from 'axios';
-
+import axios, { AxiosError } from 'axios';
+import { toast } from 'sonner';
 import { useState } from 'react';
-
 import { useRouter } from 'next/navigation';
-
 import { useMutation } from '@tanstack/react-query';
-
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
-
 import { CreateSubredditPayload } from '@/lib/validator/subreddit';
 
 const Page = () => {
   const [input, setInput] = useState<string>('');
   const router = useRouter();
 
-  const { mutate: CreateCommunity, isLoading } = useMutation({
+  const { mutate: createCommunity, isLoading } = useMutation({
     mutationFn: async () => {
       const payload: CreateSubredditPayload = {
         name: input,
       };
 
-      const { data } = await axios.post('api/subreddit', payload);
+      const { data } = await axios.post('/api/subreddit', payload);
+      return data;
+    },
+    onError: (err) => {
+      if (
+        err instanceof Error &&
+        err.message === 'Please sign in to create a community'
+      ) {
+        return toast.error('Please sign in to create a community', {
+          action: {
+            label: 'Sign In',
+            onClick: () => router.push('/sign-in'),
+          },
+        });
+      }
 
-      return data as string;
+      if (err instanceof AxiosError) {
+        if (err.response?.status === 409) {
+          return toast.error('A subreddit with this name already exists');
+        }
+
+        if (err.response?.status === 422) {
+          return toast.error(
+            'Please provide a valid community name (3-21 characters)',
+          );
+        }
+
+        if (err.response?.status === 401) {
+          return toast.error('Please sign in to create a community', {
+            action: {
+              label: 'Sign In',
+              onClick: () => router.push('/sign-in'),
+            },
+          });
+        }
+
+        const message =
+          err.response?.data?.error || 'Failed to create community';
+        return toast.error(message);
+      }
+
+      toast.error('Something went wrong');
+    },
+    onSuccess: () => {
+      router.push(`/r/${input}`);
+      toast.success('Community created successfully!');
     },
   });
 
@@ -64,7 +103,7 @@ const Page = () => {
           <Button
             isLoading={isLoading}
             disabled={input.length === 0}
-            onClick={() => CreateCommunity()}
+            onClick={() => createCommunity()}
           >
             Create community
           </Button>

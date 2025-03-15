@@ -4,7 +4,6 @@ import { UserUpdateInput } from '@prisma/client';
 import { nanoid } from 'nanoid';
 import { NextAuthOptions, getServerSession } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
-
 import { db } from '@/lib/db';
 
 export const authOptions: NextAuthOptions = {
