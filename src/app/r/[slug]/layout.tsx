@@ -1,13 +1,54 @@
+import { format } from 'date-fns';
+import { notFound } from 'next/navigation';
+import SubscribeLeaveToggle from '@/components/SubscribeLeaveToggle';
 import { getAuthSession } from '@/lib/auth';
+import { db } from '@/lib/db';
 
 const layout = async ({
   children,
-  params,
+  params: { slug },
 }: {
   children: React.ReactNode;
   params: { slug: string };
 }) => {
   const session = await getAuthSession();
+
+  const subreddit = await db.subreddit.findFirst({
+    where: { name: slug },
+    include: {
+      posts: {
+        include: {
+          author: true,
+          votes: true,
+        },
+      },
+    },
+  });
+
+  const subscription = !session?.user
+    ? undefined
+    : await db.subscription.findFirst({
+        where: {
+          subreddit: {
+            name: slug,
+          },
+          user: {
+            id: session.user.id,
+          },
+        },
+      });
+
+  const isSubscribed = !!subscription;
+
+  if (!subreddit) notFound();
+
+  const memberCount = await db.subscription.count({
+    where: {
+      subreddit: {
+        name: slug,
+      },
+    },
+  });
 
   return (
     <div className="sm:conatiner max-w-7xl mx-auto h-full pt-12">
@@ -18,16 +59,39 @@ const layout = async ({
           {/* info sidebar */}
           <div className="hidden md:block overflow-hidden h-fit rounded-lg border border-gray-200 order-first md:order-last">
             <div className="px-6 py-4">
-              <p className="font-semibold py-3">About r/{params.slug}</p>
-              <div className="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
-                <div className="flex justify-between gap-x-4 py-3">
-                  <p className="text-zinc-500">
-                    Your personal Ali Reddit homepage. Come here to check in
-                    with your favorites communites.
-                  </p>
-                </div>
-              </div>
+              <p className="font-semibold py-3">About r/{subreddit.name}</p>
             </div>
+            <dl className="divide-y divide-gray-100 px-6 py-4 text-sm leading-6 bg-white">
+              <div className="flex justify-between gap-x-4 py-3">
+                <dt className="text-gray-500">Created</dt>
+                <dd className="text-gray-700">
+                  <time dateTime={subreddit.createdAt.toDateString()}>
+                    {format(subreddit.createdAt, 'MMM dd, yyyy')}
+                  </time>
+                </dd>
+              </div>
+
+              <div className="flex justify-between gap-x-4 py-3">
+                <dt className="text-gray-500">Members</dt>
+                <dd className="text-gray-700">
+                  <div className="text-gray-900">{memberCount}</div>
+                </dd>
+              </div>
+
+              {subreddit.creatorId === session?.user.id ? (
+                <div className="flex justify-between gap-x-4 py-3">
+                  <p className="text-gray-500">You created this community</p>
+                </div>
+              ) : null}
+
+              {subreddit.creatorId !== session?.user.id ? (
+                <SubscribeLeaveToggle
+                  isSubscribed={isSubscribed}
+                  subredditId={subreddit.id}
+                  subredditName={subreddit.name}
+                />
+              ) : null}
+            </dl>
           </div>
         </div>
       </div>

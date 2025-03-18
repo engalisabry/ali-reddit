@@ -10,6 +10,6 @@ export const SubredditSubscriptionValidator = z.object({
 
 export type CreateSubredditPayload = z.TypeOf<typeof SubredditValidator>;
 
-export type SubscribeSubredditPayload = z.TypeOf<
+export type SubscribeToSubredditPayload = z.TypeOf<
   typeof SubredditSubscriptionValidator
 >;
