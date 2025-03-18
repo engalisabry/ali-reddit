@@ -2,11 +2,8 @@
 
 import { signIn } from 'next-auth/react';
 import { toast } from 'sonner';
-
 import { FC, useState } from 'react';
-
 import { cn } from '@/lib/utils';
-
 import { Icons } from './Icons';
 import { Button } from './ui/Button';
 

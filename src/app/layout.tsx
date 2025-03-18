@@ -1,10 +1,8 @@
 import { Inter } from 'next/font/google';
-
 import Navbar from '@/components/Navbar';
+import Providers from '@/components/Providers';
 import { Toaster } from '@/components/ui/Sonner';
-
 import { cn } from '@/lib/utils';
-
 import '@/styles/globals.css';
 
 export const metadata = {
@@ -29,16 +27,18 @@ export default function RootLayout({
         inter.className,
       )}
     >
-      <body className="min-h-screen pt-50 bg-slate-50 antialiased">
-        {/* @ts-expect-error Server Component */}
-        <Navbar />
+      <body className="min-h-screen pt-70 bg-slate-50 antialiased">
+        <Providers>
+          {/* @ts-expect-error Server Component */}
+          <Navbar />
 
-        {authModel}
+          {authModel}
 
-        <div className="container max-w-7xl mx-auto h-full pt-12">
-          {children}
-        </div>
-        <Toaster />
+          <div className="container max-w-7xl mx-auto h-full pt-12">
+            {children}
+          </div>
+          <Toaster />
+        </Providers>
       </body>
     </html>
   );
