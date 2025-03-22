@@ -21,7 +21,8 @@ export async function POST(req: Request) {
       },
     });
 
-    if (!subscriptionExists) return new Response('Subscribe to post', { status: 400 });
+    if (!subscriptionExists)
+      return new Response('Subscribe to post', { status: 400 });
 
     await db.post.create({
       data: {

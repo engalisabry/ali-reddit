@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation';
 import MiniCreatePost from '@/components/MiniCreatePost';
+import PostFeed from '@/components/PostFeed';
 import { getAuthSession } from '@/lib/auth';
 import { db } from '@/lib/db';
 import { INFINITE_SCROLLING_PAGINATION_SCROLLING } from '../../../../config';
@@ -26,7 +27,9 @@ const Page = async ({ params }: PageProps) => {
           comments: true,
           subreddit: true,
         },
-
+        orderBy: {
+          createdAt: "desc"
+        },
         take: INFINITE_SCROLLING_PAGINATION_SCROLLING,
       },
     },
@@ -40,6 +43,10 @@ const Page = async ({ params }: PageProps) => {
         r/{subreddit.name}
       </h1>
       <MiniCreatePost session={session} />
+      <PostFeed
+        initPosts={subreddit.posts}
+        subredditName={subreddit.name}
+      />
     </>
   );
 };
