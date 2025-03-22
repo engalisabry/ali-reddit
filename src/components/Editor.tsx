@@ -9,9 +9,8 @@ import { toast } from 'sonner';
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
-import { postCreationRequest, postValidator } from '@/lib/validator/post';
 import { uploadImage } from '@/lib/uploadthing';
-
+import { postCreationRequest, postValidator } from '@/lib/validator/post';
 
 interface EditorProps {
   subredditId: string;
@@ -64,12 +63,12 @@ const Editor: FC<EditorProps> = ({ subredditId }) => {
             config: {
               endpoint: '/api/link',
             },
-          },           
+          },
           image: {
             class: ImageTool,
             config: {
               uploader: {
-                uploadByFile: uploadImage, 
+                uploadByFile: uploadImage,
               },
             },
           },
@@ -136,7 +135,7 @@ const Editor: FC<EditorProps> = ({ subredditId }) => {
       return data;
     },
     onError: (error) => {
-      console.log(error)
+      console.log(error);
       return toast('Something went wrong', {
         description: 'Your post was not published, try again later',
       });
