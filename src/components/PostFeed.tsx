@@ -46,11 +46,11 @@ const PostFeed: FC<PostFeedProps> = ({
 
   const posts = data?.pages.flatMap((page) => page) ?? initPosts;
 
-  useEffect(()=> {
-    if(entry?.isIntersecting) {
-      fetchNextPage()
+  useEffect(() => {
+    if (entry?.isIntersecting) {
+      fetchNextPage();
     }
-  }, [entry, fetchNextPage])
+  }, [entry, fetchNextPage]);
 
   return (
     <ul className="flex flex-col col-span-2 space-y-6">

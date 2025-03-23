@@ -1,43 +1,41 @@
-import { getAuthSession } from '@/lib/auth'
-import { db } from '@/lib/db'
-import PostFeed from './PostFeed'
-import { INFINITE_SCROLLING_PAGINATION_SCROLLING } from '../../config'
-
+import { getAuthSession } from '@/lib/auth';
+import { db } from '@/lib/db';
+import { INFINITE_SCROLLING_PAGINATION_SCROLLING } from '../../config';
+import PostFeed from './PostFeed';
 
 const CustomFeed = async ({}) => {
-  const session = await getAuthSession()
+  const session = await getAuthSession();
 
   const followedCommunities = await db.subscription.findMany({
     where: {
-      userId: session?.user.id
+      userId: session?.user.id,
     },
     include: {
-      subreddit: true
-    }
-  })
+      subreddit: true,
+    },
+  });
 
   const posts = await db.post.findMany({
     where: {
       subreddit: {
         name: {
-          in: followedCommunities.map(({subreddit})=> subreddit.id)
-        }
-      }
+          in: followedCommunities.map(({ subreddit }) => subreddit.id),
+        },
+      },
     },
     orderBy: {
-      createdAt: "desc"
+      createdAt: 'desc',
     },
     include: {
       votes: true,
       author: true,
       comments: true,
-      subreddit: true
+      subreddit: true,
     },
-    take: INFINITE_SCROLLING_PAGINATION_SCROLLING
+    take: INFINITE_SCROLLING_PAGINATION_SCROLLING,
+  });
 
-  })
+  return <PostFeed initPosts={posts} />;
+};
 
-  return <PostFeed initPosts={posts}/>
-}
-
-export default CustomFeed
+export default CustomFeed;
