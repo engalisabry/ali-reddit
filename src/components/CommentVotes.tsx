@@ -3,7 +3,7 @@
 import { usePrevious } from '@mantine/hooks';
 import { CommentVote, VoteType } from '@prisma/client';
 import axios, { AxiosError } from 'axios';
-import { ArrowBigUp } from 'lucide-react';
+import { ArrowBigDown, ArrowBigUp } from 'lucide-react';
 import { toast } from 'sonner';
 import { FC, useState } from 'react';
 import { useRouter } from 'next/navigation';
@@ -99,7 +99,7 @@ const CommentVotes: FC<CommentVotesProps> = ({
         variant="ghost"
         onClick={() => vote('DOWN')}
       >
-        <ArrowBigUp
+        <ArrowBigDown
           className={cn('h-5 w-5 text-zinc-700', {
             'text-red-500 fill-red-500': currentVote?.voteType === 'DOWN',
           })}

@@ -28,7 +28,6 @@ export const uploadImage = async (file: File) => {
     const uploadedFile = res[0];
     return { success: 1, file: { url: uploadedFile.ufsUrl } };
   } catch (error) {
-    console.error('Upload failed:', error);
     return { success: 0, file: { url: null } };
   }
 };
