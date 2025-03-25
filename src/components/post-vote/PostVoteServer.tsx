@@ -1,5 +1,4 @@
 import { Post, Vote, VoteType } from '@prisma/client';
-import { FC } from 'react';
 import { notFound } from 'next/navigation';
 import { getAuthSession } from '@/lib/auth';
 import PostVoteClient from './PostVoteClient';

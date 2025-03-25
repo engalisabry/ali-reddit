@@ -3,7 +3,7 @@ import { UploadThingError } from 'uploadthing/server';
 
 const f = createUploadthing();
 
-const auth = (req: Request) => ({ id: 'fakeId' }); // Replace with real authentication
+const auth = (req: Request) => ({ id: 'fakeId' });
 
 export const ourFileRouter = {
   imageUploader: f({
@@ -14,9 +14,7 @@ export const ourFileRouter = {
       if (!user) throw new UploadThingError('Unauthorized');
       return { userId: user.id };
     })
-    .onUploadComplete(async ({ metadata, file }) => {
-      console.log('Upload complete for userId:', metadata.userId);
-      console.log('file url', file.ufsUrl);
+    .onUploadComplete(async ({ metadata }) => {
       return { uploadedBy: metadata.userId };
     }),
 } satisfies FileRouter;

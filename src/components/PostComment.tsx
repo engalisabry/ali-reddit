@@ -1,9 +1,11 @@
+'use client';
+
 import { Comment, CommentVote, User } from '@prisma/client';
 import axios from 'axios';
 import { MessageSquare } from 'lucide-react';
 import { useSession } from 'next-auth/react';
 import { toast } from 'sonner';
-import { FC, useRef, useState } from 'react';
+import { FC, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
 import { formatTimeToNow } from '@/lib/utils';
@@ -32,7 +34,6 @@ const PostComment: FC<PostCommentProps> = ({
   votesAmount,
   postId,
 }) => {
-  const commentRef = useRef<HTMLDivElement>(null);
   const [input, setInput] = useState<string>('');
   const router = useRouter();
   const { data: session } = useSession();

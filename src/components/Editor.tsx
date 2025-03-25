@@ -134,8 +134,7 @@ const Editor: FC<EditorProps> = ({ subredditId }) => {
       const { data } = await axios.post('/api/subreddit/post/create', payload);
       return data;
     },
-    onError: (error) => {
-      console.log(error);
+    onError: () => {
       return toast('Something went wrong', {
         description: 'Your post was not published, try again later',
       });

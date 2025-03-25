@@ -26,7 +26,7 @@ const PostFeed: FC<PostFeedProps> = ({
     threshold: 1,
   });
 
-  const { data, fetchNextPage, isFetchingNextPage } = useInfiniteQuery(
+  const { data, fetchNextPage } = useInfiniteQuery(
     ['infinite-query'],
     async ({ pageParam = 1 }) => {
       const query =
