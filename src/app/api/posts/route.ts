@@ -1,4 +1,4 @@
-import z from 'zod/lib';
+import z from 'zod';
 import { getAuthSession } from '@/lib/auth';
 import { db } from '@/lib/db';
 

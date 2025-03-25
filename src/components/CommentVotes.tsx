@@ -1,25 +1,25 @@
 'use client';
 
 import { usePrevious } from '@mantine/hooks';
-import { VoteType } from '@prisma/client';
+import { CommentVote, VoteType } from '@prisma/client';
 import axios, { AxiosError } from 'axios';
 import { ArrowBigUp } from 'lucide-react';
 import { toast } from 'sonner';
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useMutation } from '@tanstack/react-query';
+import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/utils';
-import { PostVoteRequest } from '@/lib/validator/vote';
-import { Button } from '../ui/Button';
+import { CommentVoteRequest } from '@/lib/validator/vote';
 
-interface PostVoteClientProps {
-  postId: string;
+interface CommentVotesProps {
+  commentId: string;
   initVotesAmount: number;
-  initVotes?: VoteType | null;
+  initVotes?: Pick<CommentVote, 'voteType'>;
 }
 
-const PostVoteClient: FC<PostVoteClientProps> = ({
-  postId,
+const CommentVotes: FC<CommentVotesProps> = ({
+  commentId,
   initVotesAmount,
   initVotes,
 }) => {
@@ -30,12 +30,12 @@ const PostVoteClient: FC<PostVoteClientProps> = ({
 
   const { mutate: vote } = useMutation({
     mutationFn: async (voteType: VoteType) => {
-      const payload: PostVoteRequest = {
-        postId,
+      const payload: CommentVoteRequest = {
+        commentId,
         voteType,
       };
 
-      await axios.patch('/api/subreddit/post/vote', payload);
+      await axios.patch('/api/subreddit/post/comment/vote', payload);
     },
     onError: (err, voteType) => {
       if (voteType === 'UP') setVotesAmount((prev) => prev - 1);
@@ -58,28 +58,24 @@ const PostVoteClient: FC<PostVoteClientProps> = ({
         description: 'Your vote was not registered, please try again.',
       });
     },
-    onMutate: (type: VoteType) => {
-      if (currentVote === type) {
+    onMutate: (voteType: VoteType) => {
+      if (currentVote?.voteType === voteType) {
         setCurrentVote(undefined);
 
-        if (type === 'UP') setVotesAmount((prev) => prev - 1);
-        else if (type === 'DOWN') setVotesAmount((prev) => prev + 1);
+        if (voteType === 'UP') setVotesAmount((prev) => prev - 1);
+        else if (voteType === 'DOWN') setVotesAmount((prev) => prev + 1);
       } else {
-        setCurrentVote(type);
-        if (type === 'UP')
+        setCurrentVote({ voteType });
+        if (voteType === 'UP')
           setVotesAmount((prev) => prev + (currentVote ? 2 : 1));
-        else if (type === 'DOWN')
+        else if (voteType === 'DOWN')
           setVotesAmount((prev) => prev - (currentVote ? 2 : 1));
       }
     },
   });
 
-  useEffect(() => {
-    setCurrentVote(initVotes);
-  }, [initVotes]);
-
   return (
-    <div className="flex sm:flex-col gap-4 sm:gap-0 pr-6 sm:w-20 pb-4 sm:pb-0">
+    <div className="flex gap-1">
       <Button
         aria-label="upvote"
         size="sm"
@@ -88,7 +84,7 @@ const PostVoteClient: FC<PostVoteClientProps> = ({
       >
         <ArrowBigUp
           className={cn('h-5 w-5 text-zinc-700', {
-            'text-emerald-500 fill-emerald-500': currentVote === 'UP',
+            'text-emerald-500 fill-emerald-500': currentVote?.voteType === 'UP',
           })}
         />
       </Button>
@@ -105,7 +101,7 @@ const PostVoteClient: FC<PostVoteClientProps> = ({
       >
         <ArrowBigUp
           className={cn('h-5 w-5 text-zinc-700', {
-            'text-red-500 fill-red-500': currentVote === 'DOWN',
+            'text-red-500 fill-red-500': currentVote?.voteType === 'DOWN',
           })}
         />
       </Button>
@@ -113,4 +109,4 @@ const PostVoteClient: FC<PostVoteClientProps> = ({
   );
 };
 
-export default PostVoteClient;
+export default CommentVotes;
