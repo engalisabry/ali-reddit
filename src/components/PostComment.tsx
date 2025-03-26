@@ -131,16 +131,14 @@ const PostComment: FC<PostCommentProps> = ({
                   isLoading={isLoading}
                   disabled={input.length === 0}
                   onClick={() => {
-                    if (!input) {
-                      return postComment({
-                        postId,
-                        text: input,
-                        replyToId: comment.replyToId ?? comment.id,
-                      });
-                    }
+                    postComment({
+                      postId,
+                      text: input,
+                      replyToId: comment.replyToId ?? comment.id,
+                    });
                   }}
                 >
-                  Post
+                  Post reply
                 </Button>
               </div>
             </div>

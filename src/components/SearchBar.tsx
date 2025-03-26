@@ -38,14 +38,13 @@ const SearchBar = ({}) => {
     enabled: false,
   });
 
-  function request() {
-    return debounce(async () => refetch(), 300);
-  }
-
-  const debouncRequest = useCallback(() => {
-    request();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const debouncedRequest = useCallback(
+    debounce(() => {
+      refetch();
+    }, 300),
+    [refetch],
+  );
 
   const commandRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
@@ -67,7 +66,7 @@ const SearchBar = ({}) => {
         value={input}
         onValueChange={(text: string) => {
           setInput(text);
-          debouncRequest();
+          debouncedRequest();
         }}
         className="outline-none border-none focus:border-none focus:outline-none ring-0"
         placeholder="Search communities...."

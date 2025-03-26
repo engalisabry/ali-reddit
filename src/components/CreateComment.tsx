@@ -46,7 +46,7 @@ const CreateComment: FC<CreateCommentProps> = ({ postId, replyToId }) => {
           });
         }
 
-        return toast('There was an proplem, Please try again later');
+        return toast.error('There was an proplem, Please try again later');
       }
     },
 
