@@ -65,21 +65,30 @@ const PostFeed: FC<PostFeedProps> = ({
           const currentVote = post.votes.find(
             (vote) => vote.userId === session?.user.id,
           );
-
-          return (
-            <li
-              key={post.id}
-              ref={index === posts.length - 1 ? ref : undefined}
-            >
-              <Post
-                votesAmount={votesAmount}
-                currentVote={currentVote}
-                post={post}
-                subredditName={post.subreddit.name}
-                commentAmount={post.comments.length}
-              />
-            </li>
-          );
+          if (index === posts.length - 1) {
+            return (
+              <li
+                key={post.id}
+                ref={index === posts.length - 1 ? ref : undefined}
+              >
+                <Post
+                  votesAmount={votesAmount}
+                  currentVote={currentVote}
+                  post={post}
+                  subredditName={post.subreddit.name}
+                  commentAmount={post.comments.length}
+                />
+              </li>
+            );
+          } else {
+            <Post
+              votesAmount={votesAmount}
+              currentVote={currentVote}
+              post={post}
+              subredditName={post.subreddit.name}
+              commentAmount={post.comments.length}
+            />;
+          }
         })
       ) : (
         <li>No posts available</li>

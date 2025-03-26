@@ -1,11 +1,12 @@
+import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/next';
-import { Analytics } from "@vercel/analytics/react"
 import { Inter } from 'next/font/google';
 import Navbar from '@/components/Navbar';
 import Providers from '@/components/Providers';
 import { Toaster } from '@/components/ui/Sonner';
 import { cn } from '@/lib/utils';
 import '@/styles/globals.css';
+
 export const metadata = {
   title: 'Ali Reddit',
   description: 'A Reddit clone built with Next.js and TypeScript.',
@@ -37,13 +38,18 @@ export default function RootLayout({
 
           <div className="container max-w-7xl mx-auto h-full pt-15">
             {children}
-            <SpeedInsights />{' '}
-            <Analytics />
+            <SpeedInsights /> <Analytics />
             {/* This a vercel Insights & Analytics comp to monitor the app */}
           </div>
           <Toaster />
         </Providers>
       </body>
+      {/* ping */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `setInterval(() => fetch('/'), ${6 * 24 * 60 * 60 * 1000})`,
+        }}
+      />
     </html>
   );
 }
