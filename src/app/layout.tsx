@@ -10,6 +10,9 @@ import '@/styles/globals.css';
 export const metadata = {
   title: 'Ali Reddit',
   description: 'A Reddit clone built with Next.js and TypeScript.',
+  icons: {
+    icon: '/logo.svg',
+  },
 };
 
 const inter = Inter({ subsets: ['latin'] });
