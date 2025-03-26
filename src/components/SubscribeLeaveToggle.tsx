@@ -35,7 +35,7 @@ const SubscribeLeaveToggle: FC<SubscribeLeaveToggleProps> = ({
     onError: (err) => {
       if (err instanceof AxiosError) {
         if (err?.response?.status == 401) {
-          toast('You are not authorized', {
+          return toast('You are not authorized', {
             description: 'Please login to your account before subscribe',
             action: {
               label: 'Sign In',
@@ -44,18 +44,16 @@ const SubscribeLeaveToggle: FC<SubscribeLeaveToggleProps> = ({
           });
         }
 
-        toast('There was an proplem', {
-          description: 'Please try again later',
-        });
+        return toast.error('There was an proplem, try again later');
       }
     },
 
     onSuccess: () => {
       startTransition(() => router.refresh());
 
-      return toast('Subscribed!', {
-        description: `You are now subscribe to r/${subredditName}`,
-      });
+      return toast.success(
+        `Subscribed!, You are now subscribe to r/${subredditName}`,
+      );
     },
   });
 
@@ -73,7 +71,7 @@ const SubscribeLeaveToggle: FC<SubscribeLeaveToggleProps> = ({
     onError: (err) => {
       if (err instanceof AxiosError) {
         if (err?.response?.status == 401) {
-          toast('You are not authorized', {
+          return toast('You are not authorized', {
             description: 'Please login to your account before subscribe',
             action: {
               label: 'Sign In',
@@ -82,18 +80,15 @@ const SubscribeLeaveToggle: FC<SubscribeLeaveToggleProps> = ({
           });
         }
 
-        toast('There was an proplem', {
-          description: 'Please try again later',
-        });
+        return toast.error('There was an proplem, try again later');
       }
     },
 
     onSuccess: () => {
       startTransition(() => router.refresh());
-
-      return toast('UnSubscribed!', {
-        description: `You are now unsubscribe from r/${subredditName}`,
-      });
+      return toast.success(
+        `UnSubscribed! You are now unsubscribe from r/${subredditName}`,
+      );
     },
   });
 

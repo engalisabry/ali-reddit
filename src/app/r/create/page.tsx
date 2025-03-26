@@ -60,11 +60,11 @@ const Page = () => {
         return toast.error(message);
       }
 
-      toast.error('Something went wrong');
+      return toast.error('Something went wrong');
     },
     onSuccess: () => {
       router.push(`/r/${input}`);
-      toast.success('Community created successfully!');
+      return toast.success('Community created successfully!');
     },
   });
 

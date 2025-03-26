@@ -54,9 +54,9 @@ const PostComment: FC<PostCommentProps> = ({
       return data;
     },
     onError: () => {
-      toast('Somethimg went wrong', {
-        description: "Comment wasn't posted successfully, try again later",
-      });
+      return toast.error(
+        "Somethimg went wrong, Comment wasn't posted successfully, try again later",
+      );
     },
     onSuccess: () => {
       router.refresh();

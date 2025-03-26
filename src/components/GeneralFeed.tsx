@@ -1,8 +1,8 @@
 import { db } from '@/lib/db';
-import { INFINITE_SCROLLING_PAGINATION_SCROLLING } from '../../config';
+import { INFINITE_SCROLLING_PAGINATION_SCROLLING } from '../config';
 import PostFeed from './PostFeed';
 
-const GeneralFeed = async ({}) => {
+const GeneralFeed = async () => {
   const posts = await db.post.findMany({
     orderBy: {
       createdAt: 'desc',

@@ -3,7 +3,7 @@ import MiniCreatePost from '@/components/MiniCreatePost';
 import PostFeed from '@/components/PostFeed';
 import { getAuthSession } from '@/lib/auth';
 import { db } from '@/lib/db';
-import { INFINITE_SCROLLING_PAGINATION_SCROLLING } from '../../../../config';
+import { INFINITE_SCROLLING_PAGINATION_SCROLLING } from '../../../config';
 
 type PageProps = {
   params: {

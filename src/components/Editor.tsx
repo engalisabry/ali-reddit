@@ -86,9 +86,9 @@ const Editor: FC<EditorProps> = ({ subredditId }) => {
     if (Object.keys(errors).length) {
       // eslint-disable-next-line no-unused-vars
       for (const [_key, value] of Object.entries(errors)) {
-        toast('Something went wrong', {
-          description: (value as { message: string }).message,
-        });
+        toast.error(
+          `Something went wrong ${(value as { message: string }).message}`,
+        );
       }
     }
   }, [errors]);
@@ -135,9 +135,9 @@ const Editor: FC<EditorProps> = ({ subredditId }) => {
       return data;
     },
     onError: () => {
-      return toast('Something went wrong', {
-        description: 'Your post was not published, try again later',
-      });
+      return toast.error(
+        'Something went wrong, Your post was not published try again later.',
+      );
     },
     onSuccess: () => {
       const newPathname = pathname.split('/').slice(0, -1).join('/');

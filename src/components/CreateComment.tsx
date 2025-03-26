@@ -37,7 +37,7 @@ const CreateComment: FC<CreateCommentProps> = ({ postId, replyToId }) => {
     onError: (err) => {
       if (err instanceof AxiosError) {
         if (err?.response?.status == 401) {
-          toast('You are not authorized', {
+          return toast('You are not authorized', {
             description: 'Please login to your account before subscribe',
             action: {
               label: 'Sign In',
@@ -46,9 +46,7 @@ const CreateComment: FC<CreateCommentProps> = ({ postId, replyToId }) => {
           });
         }
 
-        toast('There was an proplem', {
-          description: 'Please try again later',
-        });
+        return toast('There was an proplem, Please try again later');
       }
     },
 

@@ -54,9 +54,9 @@ const PostVoteClient: FC<PostVoteClientProps> = ({
         }
       }
 
-      toast('something went wrong', {
-        description: 'Your vote was not registered, please try again.',
-      });
+      return toast.error(
+        'Something went wrong, your vote was not registered, please try again.',
+      );
     },
     onMutate: (type: VoteType) => {
       if (currentVote === type) {

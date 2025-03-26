@@ -45,7 +45,7 @@ const CommentVotes: FC<CommentVotesProps> = ({
 
       if (err instanceof AxiosError) {
         if (err.response?.status === 401) {
-          return toast('You need to sign in first', {
+          return toast.error('You are not authorized', {
             action: {
               label: 'Sign In',
               onClick: () => router.push('/sign-in'),
@@ -54,7 +54,7 @@ const CommentVotes: FC<CommentVotesProps> = ({
         }
       }
 
-      toast('something went wrong', {
+      return toast.error('something went wrong', {
         description: 'Your vote was not registered, please try again.',
       });
     },

@@ -6,7 +6,7 @@ import axios from 'axios';
 import { useSession } from 'next-auth/react';
 import { FC, useEffect, useRef } from 'react';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { INFINITE_SCROLLING_PAGINATION_SCROLLING } from '../../config';
+import { INFINITE_SCROLLING_PAGINATION_SCROLLING } from '../config';
 import Post from './Post';
 
 interface PostFeedProps {
@@ -54,7 +54,7 @@ const PostFeed: FC<PostFeedProps> = ({
 
   return (
     <ul className="flex flex-col col-span-2 space-y-6">
-      {posts.map((post, index) => {
+      {posts.length > 0 && posts.map((post, index) => {
         const votesAmount = post.votes.reduce((acc, vote) => {
           if (vote.type === 'UP') return acc + 1;
           if (vote.type === 'DOWN') return acc - 1;
