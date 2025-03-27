@@ -54,9 +54,7 @@ const CommentVotes: FC<CommentVotesProps> = ({
         }
       }
 
-      return toast.error('something went wrong', {
-        description: 'Your vote was not registered, please try again.',
-      });
+      return toast.error('Something went wrong, your vote was not registered, please try again.');
     },
     onMutate: (voteType: VoteType) => {
       if (currentVote?.voteType === voteType) {

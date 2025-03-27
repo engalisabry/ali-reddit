@@ -48,7 +48,15 @@ const PostFeed: FC<PostFeedProps> = ({ initialPosts, subredditName }) => {
     }
   }, [entry, fetchNextPage]);
 
-  const posts = data?.pages.flatMap((page) => page) ?? initialPosts;
+const posts = data?.pages?.flatMap((page) => page?.filter(Boolean)) ?? initialPosts ?? [];
+
+if (posts.length === 0) {
+  return (
+      <div className="flex flex-col col-span-2 items-center justify-center">
+          <p>No posts yet</p>
+      </div>
+  );
+}
 
   return (
     <ul className="flex flex-col col-span-2 space-y-6">
