@@ -8,7 +8,7 @@ export const metadata = {
   description: 'Manage account and website settings.',
 };
 
-const page = async ({}) => {
+const page = async () => {
   const session = await getAuthSession();
   if (!session?.user) {
     redirect(authOptions.pages?.signIn || '/sign-in');
@@ -16,7 +16,7 @@ const page = async ({}) => {
 
   return (
     <div className="max-w-4xl mx-auto py-12">
-      <BackHomeButton />
+      <BackHomeButton className="block my-3" />
       <div className="grid items-center gap-8">
         <h1 className="font-bold text-3xl md:text-4xl">Settings</h1>
       </div>
