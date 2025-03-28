@@ -25,7 +25,9 @@ const style = {
   },
 };
 
-const EditorOutput: FC<EditorOutputProps> = ({ content }) => {
+const EditorOutput: FC<EditorOutputProps> = ({ content = [] }) => {
+  if (!Array.isArray(content) || content.length === 0) return null;
+
   return (
     <Output
       data={content}

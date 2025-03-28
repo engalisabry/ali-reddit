@@ -35,7 +35,7 @@ const CustomFeed = async ({}) => {
     take: INFINITE_SCROLLING_PAGINATION_SCROLLING,
   });
 
-    return <PostFeed initialPosts={posts} />
+  return <PostFeed initialPosts={posts} />;
 };
 
 export default CustomFeed;

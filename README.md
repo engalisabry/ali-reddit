@@ -1,33 +1,59 @@
-# Reddit Clone
+# Ali-Reddit
 
-A full-featured Reddit clone built with modern web technologies. This application replicates core Reddit functionality including subreddits, posts with rich text, commenting, voting, and user authentication.
+A full-featured Reddit clone built with modern web technologies. This
+application replicates core Reddit functionality including subreddits, posts
+with rich text, commenting, voting, and user authentication.
 
-![Reddit Clone Banner](https://placeholder-for-banner-image.com)
+![Ali-Reddit Banner](https://placeholder-for-banner-image.com)
 
 ## Features
 
 - **User Authentication**
+
   - Email/password sign-up and login
   - OAuth social login
   - User sessions management
   - Protected routes
 
 - **Subreddits**
+
   - Create new communities (subreddits)
   - Subscribe/unsubscribe to communities
   - Browse subreddit content
   - Customizable subreddit settings
 
 - **Posts and Content**
+
   - Create posts with rich text editor
   - Upload images and media
   - Upvote/downvote system
   - Sorting options (trending, new, top)
 
 - **Comments**
+
   - Nested comment threads
   - Reply to comments
   - Upvote/downvote comments
+
+- **User Profiles and Customization**
+
+  - Personal user profiles
+  - Avatar and banner customization
+  - Activity history
+  - Preferences management
+
+- **Search Functionality**
+
+  - Advanced search across posts, comments, and subreddits
+  - Filtering by date, popularity, and content type
+  - Real-time search suggestions
+
+- **Notifications System**
+
+  - Real-time notifications
+  - Customizable notification preferences
+  - Activity digest emails
+  - @mentions and reply notifications
 
 - **User Interface**
   - Responsive design for all devices
@@ -37,6 +63,7 @@ A full-featured Reddit clone built with modern web technologies. This applicatio
 ## Technologies
 
 - **Frontend**:
+
   - [Next.js](https://nextjs.org/) (v13.4) - React framework
   - [TypeScript](https://www.typescriptlang.org/) (v5.x) - Type safety
   - [TailwindCSS](https://tailwindcss.com/) (v3.x) - Styling
@@ -44,11 +71,14 @@ A full-featured Reddit clone built with modern web technologies. This applicatio
   - [React Query](https://tanstack.com/query/latest) (v4.x) - Data fetching
 
 - **Backend**:
-  - [Next.js API Routes](https://nextjs.org/docs/api-routes/introduction) - Backend API
+
+  - [Next.js API Routes](https://nextjs.org/docs/api-routes/introduction) -
+    Backend API
   - [Prisma](https://www.prisma.io/) (v4.x) - ORM and database access
   - [NextAuth.js](https://next-auth.js.org/) (v4.x) - Authentication
 
 - **Database**:
+
   - PostgreSQL/MySQL/SQLite (via Prisma)
 
 - **Additional Tools**:
@@ -60,9 +90,9 @@ A full-featured Reddit clone built with modern web technologies. This applicatio
 
 ## Screenshots
 
-*Screenshots will be added soon*
+_Screenshots will be added soon_
 
-<!-- 
+<!--
 Examples to be added:
 - Home feed view
 - Subreddit view
@@ -82,48 +112,53 @@ Examples to be added:
 ### Setup
 
 1. **Clone the repository**
+
    ```bash
-   git clone https://github.com/username/reddit-clone.git
-   cd reddit-clone
+   git clone https://github.com/engalisabry/ali-reddit.git
+   cd ali-reddit
    ```
 
 2. **Install dependencies**
+
    ```bash
    pnpm install
    ```
 
 3. **Environment Variables**
-   
+
    Create a `.env` file in the root directory with the following variables:
+
    ```
    # Database
    DATABASE_URL="postgresql://username:password@localhost:5432/reddit_clone"
-   
+
    # NextAuth
    NEXTAUTH_SECRET="your-secret-key"
    NEXTAUTH_URL="http://localhost:3000"
-   
+
    # OAuth Providers (optional)
    GOOGLE_CLIENT_ID="your-google-client-id"
    GOOGLE_CLIENT_SECRET="your-google-client-secret"
-   
+
    # File Uploads
    UPLOADTHING_SECRET="your-uploadthing-secret"
    UPLOADTHING_APP_ID="your-uploadthing-app-id"
    ```
 
 4. **Database Setup**
+
    ```bash
    pnpm prisma migrate dev --name init
    ```
 
 5. **Start Development Server**
+
    ```bash
    pnpm run dev
    ```
 
 6. **Access the application**
-   
+
    Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ## Development
@@ -141,6 +176,7 @@ Examples to be added:
 ### Tools
 
 - **VSCode Extensions**:
+
   - ESLint
   - Prettier
   - Tailwind CSS IntelliSense
@@ -153,7 +189,7 @@ Examples to be added:
 ### Project Structure
 
 ```
-reddit-clone/
+ali-reddit/
 ├── .github/            # GitHub configuration
 ├── prisma/             # Database schema and migrations
 ├── public/             # Static assets
@@ -183,6 +219,16 @@ reddit-clone/
 - `POST /api/auth/register` - Register a new user
 - `POST /api/auth/login` - Login (handled by NextAuth)
 - `GET /api/auth/session` - Get current session
+
+### User Profile Management
+
+- `GET /api/users/[username]` - Get user profile
+- `PUT /api/users/[username]` - Update user profile
+- `GET /api/users/[username]/posts` - Get posts by user
+- `GET /api/users/[username]/comments` - Get comments by user
+- `PUT /api/users/preferences` - Update user preferences
+- `POST /api/users/avatar` - Update user avatar
+- `POST /api/users/banner` - Update user banner
 
 ### Subreddits
 
@@ -216,32 +262,23 @@ reddit-clone/
    - Build Command: `pnpm build`
    - Output Directory: `.next`
 
-### Docker Deployment
-
-1. Build the Docker image:
-   ```bash
-   docker build -t reddit-clone .
-   ```
-
-2. Run the container:
-   ```bash
-   docker run -p 3000:3000 --env-file .env reddit-clone
-   ```
-
 ## Troubleshooting
 
 ### Common Issues
 
 - **Database Connection Errors**
+
   - Verify your DATABASE_URL in the .env file
   - Ensure the database server is running
   - Check network connectivity to the database
 
 - **Authentication Issues**
+
   - Confirm NEXTAUTH_SECRET and NEXTAUTH_URL are set correctly
   - Verify OAuth provider credentials if using social login
 
 - **Image Upload Problems**
+
   - Check uploadthing credentials
   - Verify network connectivity
   - Ensure file size is within limits
@@ -253,13 +290,14 @@ reddit-clone/
 ### Getting Help
 
 If you encounter issues not covered here, please:
+
 1. Check existing GitHub issues
 2. Create a new issue with detailed reproduction steps
 3. Include error messages and environment information
 
 ## Contributing
 
-We welcome contributions to improve the Reddit clone!
+I welcome contributions to improve Ali Reddit!
 
 ### Contributing Guidelines
 
@@ -295,12 +333,13 @@ We welcome contributions to improve the Reddit clone!
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details.
+This project is licensed under the MIT License - see the LICENSE file for
+details.
 
 ```
 MIT License
 
-Copyright (c) 2023 Reddit Clone
+Copyright (c) 2023 Ali-Reddit
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -321,62 +360,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-# (Reddit Clone)
+```
 
-(Reddit Clone) is a modern fullstack Reddit clone built with the Next.js App
-Router, TypeScript, and Tailwind CSS. It’s designed to offer a seamless,
-high-performance experience for users who want to share content, engage in
-discussions, and build communities.
-
-## Overview
-
-(Reddit Clone) leverages modern web technologies to provide:
-
-- **Dynamic Content Loading:** Infinite scrolling for a smooth browsing
-  experience.
-- **Secure Authentication:** NextAuth integrated with Google for easy sign-in.
-- **Personalized Feeds:** Custom content tailored to authenticated users.
-- **Optimized Performance:** Advanced caching using Upstash Redis and optimistic
-  UI updates.
-- **Rich Interaction:** Modern data fetching with React-Query, a fully featured
-  post editor, image uploads, link previews, and nested comment functionality.
-
-## Features
-
-- **Infinite Scrolling:** Dynamically load posts as you scroll down.
-- **Authentication:** Secure sign-in using NextAuth and Google.
-- **Custom Feed:** Personalized content for authenticated users.
-- **Advanced Caching:** Utilize Upstash Redis for enhanced performance.
-- **Optimistic Updates:** Immediate UI feedback for a smoother user experience.
-- **Modern Data Fetching:** Implemented with React-Query.
-- **Post Editor:** A powerful and elegant editor for creating posts.
-- **Media Enhancements:** Image uploads and link previews to enrich posts.
-- **Full Comment Functionality:** Complete commenting system with nested
-  replies.
-- **And Much More!**
-
-## Technologies Used
-
-- **Next.js (App Router)**
-- **TypeScript**
-- **Tailwind CSS**
-- **NextAuth & Google OAuth**
-- **Upstash Redis**
-- **React-Query**
-
-## Getting Started
-
-### Prerequisites
-
-- Node.js (v14 or above)
-- npm or yarn
-- A Redis instance (Upstash or similar)
-
-### Installation
-
-1. **Clone the Repository:**
-
-   ```bash
-   git clone https://github.com/engalisabry/reddit-clone.git
-   cd breadit
-   ```
+```

@@ -1,4 +1,5 @@
 import { redirect } from 'next/navigation';
+import BackHomeButton from '@/components/BackHomeButton';
 import UserNameForm from '@/components/UserNameForm';
 import { authOptions, getAuthSession } from '@/lib/auth';
 
@@ -15,6 +16,7 @@ const page = async ({}) => {
 
   return (
     <div className="max-w-4xl mx-auto py-12">
+      <BackHomeButton />
       <div className="grid items-center gap-8">
         <h1 className="font-bold text-3xl md:text-4xl">Settings</h1>
       </div>

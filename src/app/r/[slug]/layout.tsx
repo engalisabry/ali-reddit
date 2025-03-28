@@ -1,6 +1,7 @@
 import { format } from 'date-fns';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import BackHomeButton from '@/components/BackHomeButton';
 import SubscribeLeaveToggle from '@/components/SubscribeLeaveToggle';
 import { buttonVariants } from '@/components/ui/Button';
 import { getAuthSession } from '@/lib/auth';
@@ -93,16 +94,18 @@ const layout = async ({
                   subredditName={subreddit.name}
                 />
               ) : null}
+              
+                <Link
+                  className={buttonVariants({
+                    variant: 'outline',
+                    className: 'w-full mb-6 block',
+                  })}
+                  href={`r/${slug}/submit`}
+                >
+                  Create post
+                </Link>
 
-              <Link
-                className={buttonVariants({
-                  variant: 'outline',
-                  className: 'w-full mb-6',
-                })}
-                href={`r/${slug}/submit`}
-              >
-                Create post
-              </Link>
+                 <BackHomeButton /> 
             </dl>
           </div>
         </div>

@@ -1,4 +1,5 @@
 import { notFound } from 'next/navigation';
+import BackHomeButton from '@/components/BackHomeButton';
 import MiniCreatePost from '@/components/MiniCreatePost';
 import PostFeed from '@/components/PostFeed';
 import { getAuthSession } from '@/lib/auth';
@@ -42,6 +43,7 @@ const Page = async ({ params }: PageProps) => {
       <h1 className="font-bold text-3xl md:text-4xl h-14">
         r/{subreddit.name}
       </h1>
+      <BackHomeButton />
       <MiniCreatePost session={session} />
       <PostFeed
         initialPosts={subreddit.posts}
