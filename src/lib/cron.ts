@@ -6,10 +6,10 @@ export function startCronJob() {
     try {
       const response = await fetch('/api/keep-alive');
       if (!response.ok) {
-        console.error('Failed to ping Supabase');
+        alert('Failed to ping Supabase');
       }
     } catch (error) {
-      console.error('Error pinging Supabase:', error);
+      alert('Error pinging Supabase');
     }
   });
 }

@@ -1,4 +1,7 @@
 import { NextResponse } from 'next/server';
+import { startCronJob } from '@/lib/cron';
+
+startCronJob();
 
 export async function GET() {
   const supabaseUrl = process.env.SUPABASE_URL;

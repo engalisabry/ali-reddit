@@ -15,6 +15,13 @@ const nextConfig = {
       config.resolve.fallback = {
         ...config.resolve.fallback,
         child_process: false,
+        fs: false,
+        os: false,
+        path: false,
+        process: false,
+        timers: false,
+        stream: false,
+        crypto: false,
       };
     }
     return config;
