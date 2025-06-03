@@ -84,16 +84,7 @@
     "prettier": "^3.5.3",
     "prettier-plugin-tailwindcss": "^0.6.11"
   },
-  "pnpm": {
-    "ignoredBuiltDependencies": [
-      "@prisma/client",
-      "@prisma/client",
-      "@prisma/engines",
-      "@prisma/engines",
-      "prisma",
-      "prisma",
-      "sharp",
-      "sharp"
-    ]
+  "prisma": {
+    "generate": "prisma generate"
   }
 }
