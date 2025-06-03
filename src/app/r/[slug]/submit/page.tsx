@@ -5,12 +5,14 @@ import { db } from '@/lib/db';
 
 interface pageProps {
   params: {
-    slug: string;
-  };
+    postId: string;
+  } & Promise<any> & {
+      [Symbol.toStringTag]: string;
+    };
 }
 
 const page = async ({ params }: pageProps) => {
-  const { slug } = params;
+  const { slug } = await params;
 
   const subreddit = await db.subreddit.findFirst({
     where: {

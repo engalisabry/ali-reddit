@@ -9,11 +9,12 @@ import { db } from '@/lib/db';
 
 const layout = async ({
   children,
-  params: { slug },
+  params,
 }: {
   children: React.ReactNode;
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }) => {
+  const { slug } = await params;
   const session = await getAuthSession();
 
   const subreddit = await db.subreddit.findFirst({
@@ -94,18 +95,18 @@ const layout = async ({
                   subredditName={subreddit.name}
                 />
               ) : null}
-              
-                <Link
-                  className={buttonVariants({
-                    variant: 'outline',
-                    className: 'w-full mb-6 block',
-                  })}
-                  href={`r/${slug}/submit`}
-                >
-                  Create post
-                </Link>
 
-                 <BackHomeButton /> 
+              <Link
+                className={buttonVariants({
+                  variant: 'outline',
+                  className: 'w-full mb-6 block',
+                })}
+                href={`r/${slug}/submit`}
+              >
+                Create post
+              </Link>
+
+              <BackHomeButton />
             </dl>
           </div>
         </div>

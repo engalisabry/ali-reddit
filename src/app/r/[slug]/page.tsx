@@ -9,7 +9,9 @@ import { INFINITE_SCROLLING_PAGINATION_SCROLLING } from '../../../config';
 type PageProps = {
   params: {
     slug: string;
-  };
+  } & Promise<any> & {
+      [Symbol.toStringTag]: string;
+    };
 };
 
 const Page = async ({ params }: PageProps) => {

@@ -14,7 +14,9 @@ import { formatTimeToNow } from '@/lib/utils';
 interface pageProps {
   params: {
     postId: string;
-  };
+  } & Promise<any> & {
+      [Symbol.toStringTag]: string;
+    };
 }
 
 export const dynamic = 'force-dynamic';
