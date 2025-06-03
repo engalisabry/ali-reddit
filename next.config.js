@@ -7,9 +7,6 @@ const nextConfig = {
       'cln0xzcfw1.ufs.sh',
     ],
   },
-  experimental: {
-    appDir: true,
-  },
   webpack: (config, { isServer }) => {
     if (!isServer) {
       config.resolve.fallback = {
