@@ -9,7 +9,14 @@ export const dynamic = 'force-dynamic';
 export const fetchCache = 'force-no-store';
 
 export default async function Home() {
-  const session = await getAuthSession();
+  let session;
+  
+  try {
+    session = await getAuthSession();
+  } catch (error) {
+    console.error('Error getting auth session:', error);
+    // Continue without session if there's an error
+  }
 
   return (
     <>

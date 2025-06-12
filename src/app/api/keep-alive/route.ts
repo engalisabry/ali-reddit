@@ -1,7 +1,4 @@
 import { NextResponse } from 'next/server';
-import { startCronJob } from '@/lib/cron';
-
-startCronJob();
 
 export async function GET() {
   const supabaseUrl = process.env.SUPABASE_URL;
@@ -15,20 +12,22 @@ export async function GET() {
   }
 
   try {
-    const response = await fetch(supabaseUrl, {
+    // Simplified ping to Supabase
+    const response = await fetch(`${supabaseUrl}/rest/v1/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        apikey: supabaseKey,
+        'apikey': supabaseKey,
       },
     });
 
     if (!response.ok) {
-      throw new Error('Failed to ping Supabase');
+      throw new Error(`Failed to ping Supabase: ${response.status}`);
     }
 
-    return NextResponse.json({ success: true });
+    return NextResponse.json({ success: true, timestamp: new Date().toISOString() });
   } catch (error) {
+    console.error('Keep-alive error:', error);
     let errorMessage = 'An unknown error occurred';
     if (error instanceof Error) {
       errorMessage = error.message;

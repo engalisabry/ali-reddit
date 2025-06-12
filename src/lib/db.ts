@@ -6,16 +6,23 @@ declare global {
   var cachedPrisma: PrismaClient;
 }
 
-let prisma: PrismaClient;
-if (process.env.NODE_ENV === 'production') {
-  prisma = new PrismaClient({ log: ['query', 'info', 'warn', 'error'] });
-} else {
-  if (!global.cachedPrisma) {
-    global.cachedPrisma = new PrismaClient({
-      log: ['query', 'info', 'warn', 'error'],
+const prismaClientSingleton = () => {
+  try {
+    return new PrismaClient({
+      log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
     });
+  } catch (error) {
+    console.error('Failed to initialize Prisma client:', error);
+    throw error;
   }
-  prisma = global.cachedPrisma;
-}
+};
+
+const globalForPrisma = globalThis as unknown as {
+  cachedPrisma: PrismaClient | undefined;
+};
+
+const prisma = globalForPrisma.cachedPrisma ?? prismaClientSingleton();
 
 export const db = prisma;
+
+if (process.env.NODE_ENV !== 'production') globalForPrisma.cachedPrisma = prisma;

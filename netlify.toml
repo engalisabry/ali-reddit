@@ -1,6 +1,13 @@
 [build]
-  command = "pnpm install && pnpm prisma generate && pnpm prisma migrate deploy && pnpm build"
+  command = "pnpm install && pnpm prisma generate && pnpm build"
   publish = ".next"
 
 [[plugins]]
   package = "@netlify/plugin-nextjs"
+  
+[functions]
+  node_bundler = "esbuild"
+  included_files = ["node_modules/.prisma/**/*", "node_modules/@prisma/client/**/*"]
+
+[build.environment]
+  NODE_VERSION = "18"
