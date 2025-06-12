@@ -71,7 +71,7 @@ export const authOptions: NextAuthOptions = {
       };
     },
     redirect: () => {
-      return 'https://alireddit.netlify.app';
+      return '/';
     },
   },
 };
