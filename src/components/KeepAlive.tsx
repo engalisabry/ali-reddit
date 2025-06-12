@@ -9,15 +9,10 @@ import { useEffect } from 'react';
  */
 export default function KeepAlive() {
   useEffect(() => {
-    // Function to ping the keep-alive endpoint
     const pingKeepAlive = async () => {
       try {
-        const response = await fetch('/api/keep-alive');
-        if (!response.ok) {
-          toast.warning(`Keep-alive ping failed: ${await response.text()}`);
-        } else {
-          toast.success('Keep-alive ping successful');
-        }
+        await fetch('/api/keep-alive');
+        return;
       } catch (error) {
         toast.error(`Error during keep-alive ping: ${error}`);
       }
