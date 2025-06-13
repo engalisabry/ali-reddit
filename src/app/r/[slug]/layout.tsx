@@ -55,7 +55,7 @@ const layout = async ({
   });
 
   return (
-    <div className="sm:conatiner max-w-7xl mx-auto h-full pt-12">
+    <div className="sm:container max-w-7xl mx-auto h-full pt-12">
       <div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-y-4 py-6">
           <div className="flex flex-col col-span-2 space-y-6 ">{children}</div>
@@ -105,8 +105,6 @@ const layout = async ({
               >
                 Create post
               </Link>
-
-              <BackHomeButton />
             </dl>
           </div>
         </div>

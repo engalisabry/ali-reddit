@@ -6,7 +6,7 @@ import PostFeed from './PostFeed';
 const CustomFeed = async ({}) => {
   try {
     const session = await getAuthSession();
-    
+
     if (!session || !session.user.id) {
       // If no session, fall back to general feed
       const posts = await db.post.findMany({
@@ -32,7 +32,7 @@ const CustomFeed = async ({}) => {
         subreddit: true,
       },
     });
-    
+
     // Handle case where user hasn't joined any communities
     if (followedCommunities.length === 0) {
       const posts = await db.post.findMany({

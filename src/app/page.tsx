@@ -10,7 +10,7 @@ export const fetchCache = 'force-no-store';
 
 export default async function Home() {
   let session;
-  
+
   try {
     session = await getAuthSession();
   } catch (error) {

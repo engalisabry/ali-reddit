@@ -17,7 +17,7 @@ export async function GET() {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'apikey': supabaseKey,
+        apikey: supabaseKey,
       },
     });
 
@@ -25,7 +25,10 @@ export async function GET() {
       throw new Error(`Failed to ping Supabase: ${response.status}`);
     }
 
-    return NextResponse.json({ success: true, timestamp: new Date().toISOString() });
+    return NextResponse.json({
+      success: true,
+      timestamp: new Date().toISOString(),
+    });
   } catch (error) {
     console.error('Keep-alive error:', error);
     let errorMessage = 'An unknown error occurred';

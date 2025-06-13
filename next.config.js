@@ -1,10 +1,22 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: [
-      'uploadthing.com',
-      'lh3.googleusercontent.com',
-      'cln0xzcfw1.ufs.sh',
+   remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'uploadthing.com',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'alisabry.netlify.app',
+        pathname: '**',
+      },
     ],
     unoptimized: process.env.NODE_ENV === 'production', // For Netlify compatibility
   },

@@ -16,7 +16,7 @@ const GeneralFeed = async () => {
       },
       take: INFINITE_SCROLLING_PAGINATION_SCROLLING,
     });
-    
+
     return <PostFeed initialPosts={posts} />;
   } catch (error) {
     console.error('Error loading general feed:', error);

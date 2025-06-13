@@ -1,10 +1,10 @@
 import { Inter } from 'next/font/google';
+import KeepAlive from '@/components/KeepAlive';
 import Navbar from '@/components/Navbar';
 import Providers from '@/components/Providers';
 import { Toaster } from '@/components/ui/Sonner';
 import { cn } from '@/lib/utils';
 import '@/styles/globals.css';
-import KeepAlive from '@/components/KeepAlive';
 
 export const metadata = {
   title: 'Ali Reddit',
