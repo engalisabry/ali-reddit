@@ -10,7 +10,7 @@ const BackHomeButton = ({ className }: { className?: string }) => {
         href="/"
         className={cn(
           buttonVariants({ variant: 'ghost' }),
-          `self-start -mt-20 ${className} `,
+          `self-start ${className}`,
         )}
       >
         <ChevronLeft className="w-4 h-4 mr-2" /> Home

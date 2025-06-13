@@ -17,8 +17,14 @@ const MiniCreatePost: FC<MiniCreatePostProps> = ({ session }) => {
   const pathname = usePathname();
 
   const getSubmitPath = () => {
-    const normalizedPath = pathname.replace(/^(\/r\/)+/, '/r/');
-    return `${normalizedPath}/submit`;
+    // Extract the subreddit name from the pathname
+    const subredditMatch = pathname.match(/\/r\/([^\/]+)/);
+    if (subredditMatch && subredditMatch[1]) {
+      // Construct proper path with the subreddit name
+      return `/r/${subredditMatch[1]}/submit`;
+    }
+    // Fallback to the homepage if no match found
+    return '/';
   };
 
   return (

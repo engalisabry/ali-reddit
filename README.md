@@ -9,92 +9,59 @@ with rich text, commenting, voting, and user authentication.
 ## Features
 
 - **User Authentication**
-
   - Email/password sign-up and login
-  - OAuth social login
   - User sessions management
   - Protected routes
 
 - **Subreddits**
-
   - Create new communities (subreddits)
   - Subscribe/unsubscribe to communities
   - Browse subreddit content
-  - Customizable subreddit settings
 
 - **Posts and Content**
-
-  - Create posts with rich text editor
-  - Upload images and media
+  - Create posts with rich text editor (EditorJS)
   - Upvote/downvote system
-  - Sorting options (trending, new, top)
 
 - **Comments**
-
   - Nested comment threads
   - Reply to comments
   - Upvote/downvote comments
 
-- **User Profiles and Customization**
-
-  - Personal user profiles
-  - Avatar and banner customization
-  - Activity history
-  - Preferences management
-
-- **Search Functionality**
-
-  - Advanced search across posts, comments, and subreddits
-  - Filtering by date, popularity, and content type
-  - Real-time search suggestions
-
-- **Notifications System**
-
-  - Real-time notifications
-  - Customizable notification preferences
-  - Activity digest emails
-  - @mentions and reply notifications
-
 - **User Interface**
   - Responsive design for all devices
-  - Intuitive navigation
-  - Feed customization
+  - Light/dark mode support
+  - Accessible UI components
 
 ## Technologies
 
 - **Frontend**:
-
-  - [Next.js](https://nextjs.org/) (v13.4) - React framework
-  - [TypeScript](https://www.typescriptlang.org/) (v5.x) - Type safety
-  - [TailwindCSS](https://tailwindcss.com/) (v3.x) - Styling
-  - [Radix UI](https://www.radix-ui.com/) (v1.x) - UI components
-  - [React Query](https://tanstack.com/query/latest) (v4.x) - Data fetching
+  - [Next.js](https://nextjs.org/) (v15.x) - React framework with App Router
+  - [TypeScript](https://www.typescriptlang.org/) - Type safety
+  - [TailwindCSS](https://tailwindcss.com/) - Styling
+  - [Radix UI](https://www.radix-ui.com/) - UI components
+  - [React Query](https://tanstack.com/query/latest) - Data fetching
 
 - **Backend**:
-
-  - [Next.js API Routes](https://nextjs.org/docs/api-routes/introduction) -
-    Backend API
-  - [Prisma](https://www.prisma.io/) (v4.x) - ORM and database access
-  - [NextAuth.js](https://next-auth.js.org/) (v4.x) - Authentication
+  - [Next.js App Router API Routes](https://nextjs.org/docs/app/building-your-application/routing/route-handlers)
+  - [Prisma](https://www.prisma.io/) - ORM and database access
+  - [NextAuth.js](https://next-auth.js.org/) - Authentication
 
 - **Database**:
-
-  - PostgreSQL/MySQL/SQLite (via Prisma)
+  - PostgreSQL (via Prisma)
 
 - **Additional Tools**:
-  - [Zod](https://zod.dev/) (v3.x) - Form validation
+  - [Zod](https://zod.dev/) - Form validation
   - [EditorJS](https://editorjs.io/) - Rich text editor
   - [uploadthing](https://uploadthing.com/) - File uploads
-  - [ESLint](https://eslint.org/) - Code linting
-  - [Prettier](https://prettier.io/) - Code formatting
+  - [Lucide React](https://lucide.dev/) - Icons
 
 ## Installation
 
 ### Prerequisites
 
-- Node.js (v16+)
-- pnpm (v7+)
-- PostgreSQL/MySQL database (or use SQLite for development)
+- Node.js (v18+)
+- pnpm
+- PostgreSQL database
 
 ### Setup
 
@@ -118,14 +85,11 @@ with rich text, commenting, voting, and user authentication.
    ```
    # Database
    DATABASE_URL="postgresql://username:password@localhost:5432/reddit_clone"
+   DIRECT_URL="postgresql://username:password@localhost:5432/reddit_clone"
 
    # NextAuth
    NEXTAUTH_SECRET="your-secret-key"
    NEXTAUTH_URL="http://localhost:3000"
-
-   # OAuth Providers (optional)
-   GOOGLE_CLIENT_ID="your-google-client-id"
-   GOOGLE_CLIENT_SECRET="your-google-client-secret"
 
    # File Uploads
    UPLOADTHING_SECRET="your-uploadthing-secret"
@@ -177,143 +141,73 @@ with rich text, commenting, voting, and user authentication.
 
 ```
 ali-reddit/
-├── .github/            # GitHub configuration
 ├── prisma/             # Database schema and migrations
 ├── public/             # Static assets
 ├── src/                # Source code
 │   ├── app/            # Next.js App Router
 │   │   ├── api/        # API routes
-│   │   └── (routes)/   # App routes
+│   │   ├── (auth)/     # Auth routes
+│   │   ├── @authModel/ # Auth intercepting routes
+│   │   ├── r/          # Subreddit routes
+│   │   └── settings/   # User settings
 │   ├── components/     # Reusable components
 │   ├── hooks/          # Custom React hooks
 │   ├── lib/            # Utility functions
 │   ├── types/          # TypeScript type definitions
 │   └── styles/         # Global styles
 ├── .env                # Environment variables (not committed)
-├── .eslintrc.json      # ESLint configuration
-├── .gitignore          # Git ignore rules
+├── components.json     # Shadcn UI configuration
+├── netlify.toml        # Netlify deployment configuration
 ├── next.config.js      # Next.js configuration
 ├── package.json        # Project dependencies
-├── postcss.config.js   # PostCSS configuration
-├── tailwind.config.js  # Tailwind CSS configuration
-└── tsconfig.json       # TypeScript configuration
+└── tailwind.config.js  # Tailwind CSS configuration
 ```
 
-## API Endpoints
+## Main API Routes
 
-### Authentication
-
-- `POST /api/auth/register` - Register a new user
-- `POST /api/auth/login` - Login (handled by NextAuth)
-- `GET /api/auth/session` - Get current session
-
-### User Profile Management
-
-- `GET /api/users/[username]` - Get user profile
-- `PUT /api/users/[username]` - Update user profile
-- `GET /api/users/[username]/posts` - Get posts by user
-- `GET /api/users/[username]/comments` - Get comments by user
-- `PUT /api/users/preferences` - Update user preferences
-- `POST /api/users/avatar` - Update user avatar
-- `POST /api/users/banner` - Update user banner
-
-### Subreddits
-
-- `GET /api/subreddit` - List subreddits
-- `POST /api/subreddit` - Create subreddit
-- `GET /api/subreddit/[name]` - Get subreddit details
-- `POST /api/subreddit/subscribe` - Subscribe to subreddit
-- `POST /api/subreddit/unsubscribe` - Unsubscribe from subreddit
-
-### Posts
-
-- `GET /api/posts` - List posts
-- `POST /api/posts` - Create post
-- `GET /api/posts/[id]` - Get post details
-- `POST /api/posts/vote` - Vote on post
-
-### Comments
-
-- `GET /api/posts/[postId]/comments` - Get comments for post
-- `POST /api/posts/[postId]/comments` - Add comment
-- `POST /api/comments/vote` - Vote on comment
+- `/api/auth/[...nextauth]` - NextAuth authentication
+- `/api/subreddit` - Subreddit management
+- `/api/subreddit/post/create` - Create posts
+- `/api/subreddit/post/vote` - Vote on posts
+- `/api/subreddit/post/comment` - Comments management
+- `/api/subreddit/post/comment/vote` - Vote on comments
+- `/api/subreddit/subscribe` - Subscribe to subreddit
+- `/api/subreddit/unsubscribe` - Unsubscribe from subreddit
+- `/api/uploadthing` - File uploads
 
 ## Deployment
 
-### Vercel Deployment
+### Netlify Deployment
 
-1. Create a Vercel account and connect your GitHub repository.
-2. Add all required environment variables in the Vercel dashboard.
-3. Deploy with the following settings:
-   - Framework Preset: Next.js
-   - Build Command: `pnpm build`
-   - Output Directory: `.next`
+1. Create a Netlify account and connect your GitHub repository.
+2. Add all required environment variables in the Netlify dashboard.
+3. The deployment is configured using the `netlify.toml` file with the following settings:
+   - Build Command: `pnpm install && pnpm prisma generate && pnpm build`
+   - Publish Directory: `.next`
+   - Node Version: 18
 
 ## Troubleshooting
 
 ### Common Issues
 
 - **Database Connection Errors**
-
-  - Verify your DATABASE_URL in the .env file
+  - Verify your DATABASE_URL and DIRECT_URL in the .env file
   - Ensure the database server is running
-  - Check network connectivity to the database
-
-- **Authentication Issues**
-
-  - Confirm NEXTAUTH_SECRET and NEXTAUTH_URL are set correctly
-  - Verify OAuth provider credentials if using social login
-
-- **Image Upload Problems**
-
-  - Check uploadthing credentials
-  - Verify network connectivity
-  - Ensure file size is within limits
 
 - **Prisma Errors**
   - Run `pnpm prisma generate` after schema changes
   - Ensure migrations are applied with `pnpm prisma migrate dev`
 
-### Getting Help
-
-If you encounter issues not covered here, please:
-
-1. Check existing GitHub issues
-2. Create a new issue with detailed reproduction steps
-3. Include error messages and environment information
+- **Authentication Issues**
+  - Confirm NEXTAUTH_SECRET and NEXTAUTH_URL are set correctly
 
 ## Contributing
 
-I welcome contributions to improve Ali Reddit!
+Contributions to improve Ali-Reddit are welcome!
 
-### Contributing Guidelines
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Create a pull request
 
-1. **Fork the repository**
-2. **Create a feature branch**:
-   ```bash
-   git checkout -b feature/your-feature-name
-   ```
-3. **Make your changes**
-4. **Ensure code quality**:
-   ```bash
-   pnpm lint
-   pnpm format
-   ```
-5. **Write or update tests if applicable**
-6. **Commit using conventional commits**:
-   ```bash
-   git commit -m "feat: add new feature"
-   ```
-7. **Push to your fork**:
-   ```bash
-   git push origin feature/your-feature-name
-   ```
-8. **Create a pull request**
-
-### Code Style
-
-- Follow the existing code style
-- Use TypeScript for type safety
-- Write meaningful commit messages
-- Comment complex logic
-- Update documentation for significant changes
+Please follow the existing code style and write meaningful commit messages.

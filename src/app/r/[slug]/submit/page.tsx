@@ -27,15 +27,15 @@ const page = async ({ params }: pageProps) => {
 
   return (
     <div className="flex flex-col items-start gap-6">
-      <div className="border-b border-gray-200 pb-5">
-        <div className="-mt-2 -ml-2 flex flex-wrap items-baseline">
-          <div className="flex justify-between items-center overflow-hidden">
-            <h1 className="mt-2 ml-2 text-base font-semibold leading-6 text-gray-900">
+      <div className="border-b border-gray-200 pb-5 w-full">
+        <div className="flex flex-wrap sm:flex-nowrap justify-between items-center w-full gap-2">
+          <div className="flex flex-col">
+            <h1 className="text-xl font-semibold leading-6 text-gray-900">
               Create post
             </h1>
-            <BackHomeButton />
+            <p className="text-sm text-gray-500 mt-1">r/{slug}</p>
           </div>
-          <p className="ml-2 mt-1 truncate text-sm text-gray-500">r/{slug}</p>
+          <BackHomeButton className="ml-auto" />
         </div>
       </div>
 

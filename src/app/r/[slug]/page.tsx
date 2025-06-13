@@ -48,12 +48,6 @@ const Page = async ({ params }: PageProps) => {
         </h1>
         <BackHomeButton />
       </div>
-      <div className="flex justify-between items-center overflow-hidden">
-        <h1 className="font-bold text-3xl md:text-4xl h-14">
-          r/{subreddit.name}
-        </h1>
-        <BackHomeButton />
-      </div>
       <MiniCreatePost session={session} />
       <PostFeed
         initialPosts={subreddit.posts}
