@@ -42,7 +42,7 @@ const SearchBar = ({}) => {
   const debouncedRequest = useCallback(
     debounce(() => {
       refetch();
-    }, 300),
+    }, 500), 
     [refetch],
   );
 
@@ -57,6 +57,12 @@ const SearchBar = ({}) => {
     setInput('');
   }, [pathname]);
 
+  useEffect(() => {
+    return () => {
+      debouncedRequest.cancel();
+    };
+  }, [debouncedRequest]);
+
   return (
     <Command
       ref={commandRef}
@@ -66,7 +72,10 @@ const SearchBar = ({}) => {
         value={input}
         onValueChange={(text: string) => {
           setInput(text);
-          debouncedRequest();
+          // Only trigger the debounced request if the input has content
+          if (text.trim().length > 0) {
+            debouncedRequest();
+          }
         }}
         className="outline-none border-none focus:border-none focus:outline-none ring-0"
         placeholder="Search communities...."
